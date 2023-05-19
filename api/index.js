@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const db_url = process.env.DB_URL
+mongoose.connect(db_url);
+
 const app = express();
 
 const salt = bcrypt.genSaltSync(10);
@@ -11,10 +15,6 @@ const secret = 'ajkdnaksndjkwbfalndalksndasknlknakcas';
 
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(express.json());
-
-mongoose.connect(
-  "mongodb+srv://blog:aGFVBl2lgPFI7IAP@cluster0.j8avo7x.mongodb.net/?retryWrites=true&w=majority"
-);
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -48,6 +48,3 @@ app.post('/login', async (req, res) => {
 app.listen(4000, () => {
   console.log("Server listening on Port 4000");
 });
-
-// mongodb+srv://blog:aGFVBl2lgPFI7IAP@cluster0.j8avo7x.mongodb.net/?retryWrites=true&w=majority
-//aGFVBl2lgPFI7IAP
